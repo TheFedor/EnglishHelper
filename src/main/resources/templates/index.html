@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Words Page</title>
+</head>
+<body>
+
+<div>
+    <h1>Words List</h1>
+    <!--Все возможные для выбора первые буквы слов словаря-->
+    <div>
+        <h2>Choose a letter:</h2>
+        <div th:each="letter: ${letters}">
+            <a th:href="@{'/words/' + ${letter}}"><button th:text="${letter}"></button></a>
+        </div>
+    </div>
+    <!--все слова словаря на выбранную букву-->
+    <div th:if="${words}">
+        <h2>Words starting with selected letter</h2>
+        <ul>
+            <li th:each="word : ${words}">
+                <p th:text="${word}"></p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
