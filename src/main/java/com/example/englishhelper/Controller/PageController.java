@@ -20,22 +20,23 @@ import java.util.Map;
 @RequestMapping("/")
 public class PageController {
 
-    //создаем карту для словаря
+    //wordsMap - карта для словаря
     private final Map<String, List<Word>> wordsMap;
     private final ResourceLoader resourceLoader;
 
-    //заполняем карту словарем
     @Autowired
     public PageController(ResourceLoader resourceLoader){
         wordsMap = new HashMap<>();
         this.resourceLoader = resourceLoader;
+        //заполняем wordsMap словами из словаря
+        //каждому ключу - букве ставится в соответствие список - слова на эту букву из словаря
         try {
             Resource resource = resourceLoader.getResource("classpath:static/dictionary.txt");
             InputStream inputStream = resource.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
-            String letter = "A";
+            String letter = "A"; //ключами выступают String, а не Character, так как не уверен в своих данных, а так проще контролировать
             List<Word> wordList = new ArrayList<>();
             reader.readLine();
             while ((line = reader.readLine()) != null)
@@ -59,12 +60,12 @@ public class PageController {
     }
 
     @GetMapping
-    public String home(Model model) {
+    public String start(Model model) {
         model.addAttribute("letters", wordsMap.keySet());
         return "index";
     }
 
-    //при переходе, выводим все слова на эту букву из словаря
+    //при соответствующем переходе будем выводить соответствующие слова словаря
     @GetMapping("/words/{letter}")
     public String getWordsForLatter(Model model, @PathVariable String letter) {
         List<Word> words = wordsMap.get(letter);

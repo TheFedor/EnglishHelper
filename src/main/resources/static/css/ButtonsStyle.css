@@ -1,0 +1,13 @@
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-container div {
+    margin-right: 1px; /* Добавьте немного отступа между кнопками */
+}
+
+.button-container button {
+    display: inline-block;
+    margin-bottom: 1px; /* Добавьте немного отступа снизу для разделения строк */
+}

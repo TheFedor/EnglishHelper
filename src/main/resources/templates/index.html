@@ -3,28 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Words Page</title>
+    <!--Подключаем CSS файлы-->
+    <link rel="stylesheet" href="/css/ButtonsStyle.css">
+    <style>
+        ul {
+            padding: 4px; /* внутренние отступы у списка */
+            margin: 0; /* убираем внешние отступы у списка */
+        }
+
+        li {
+            margin-bottom: 2px; /* отступ между элементами списка */
+            font-size: 11px; /* размер шрифта для элементов списка */
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 
 <div>
-    <h1>Words List</h1>
     <!--Все возможные для выбора первые буквы слов словаря-->
-    <div>
-        <h2>Choose a letter:</h2>
+    <div class="button-container">
         <div th:each="letter: ${letters}">
             <a th:href="@{'/words/' + ${letter}}"><button th:text="${letter}"></button></a>
         </div>
     </div>
     <!--все слова словаря на выбранную букву-->
     <div th:if="${words}">
-        <h2>Words starting with selected letter</h2>
         <ul>
             <li th:each="word : ${words}">
-                <p th:text="${word}"></p>
+                <p>
+                    <span style="font-weight: bold" th:text="${word.getWord()}"></span>
+                    - <span style="font-style: italic" th:text="${word.getTranslation()}"></span>
+                    - <span th:text="${word.getDefinition()}"></span>
+                </p>
             </li>
         </ul>
     </div>
 </div>
+<!--добавил последний div, так как лично мне показалось так удобнее просматривать информацию-->
+<div style="height: 380px"></div>
 
 </body>
 </html>
